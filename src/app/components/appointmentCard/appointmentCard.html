@@ -1,0 +1,25 @@
+<div class="card" *ngIf="appointment !== null">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span class="fw-bold">Next Viewing</span>
+  </div>
+
+  <app-img-placeholder [height]="104" [additionalClass]="'card-img-top'"></app-img-placeholder>
+
+  <div class="card-body">
+    <h6 class="mb-1">{{ appointment.property.name }}</h6>
+    <div class="text-muted mb-1">
+      {{ appointment.property.address.street }} {{ appointment.property.address.houseNumber }},
+      {{ appointment.property.address.zipCode }} {{ appointment.property.address.city }},
+      {{ countryCode2countryName(appointment.property.address.country) }}
+    </div>
+    <div class="badge bg-secondary me-1" title="Date">
+      <i class="fa fa-calendar"></i> {{ appointment.date | amDateFormat:'D MMMM YYYY' }}
+    </div>
+    <div class="badge bg-secondary me-1" title="Time">
+      <i class="fa fa-clock"></i> {{ appointment.date | amDateFormat:'H:mm' }}
+    </div>
+    <div class="badge bg-secondary" title="Attendee count / invitee count">
+      <i class="fa fa-user"></i> {{ appointment.attendeeCount }} | {{ appointment.maxInviteeCount }}
+    </div>
+  </div>
+</div>

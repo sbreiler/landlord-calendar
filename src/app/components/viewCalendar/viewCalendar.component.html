@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row pt-3">
+    <div class="col py-2 border border-info rounded">
+      Jump to:
+      <a [routerLink]="['/view', '2019-02-24']" class="btn btn-outline-dark ms-2">2019/02/24</a>
+      <a [routerLink]="['/view', '2019-03-09']" class="btn btn-outline-dark ms-2">2019/03/09</a>
+      <a [routerLink]="['/']" class="btn btn-outline-dark ms-2">now</a>
+    </div>
+  </div>
+</div>
+
+<!-- show modal of selected appointment -->
+<app-appointment-modal [appointment]="selectedAppointment$ | async"></app-appointment-modal>
+
+<div class="container pt-3">
+  <div class="row align-items-start">
+    <div class="col base-calendar small-calendar" style="max-width: 350px">
+      <!-- small calendar on top left hand side (monthly view) -->
+      <div class="card mb-2">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span class="fw-bold">{{ viewDate | amDateFormat:'MMMM YYYY' }}</span>
+
+          <div class="calendar-navigation">
+            <button (click)="prevMonth($event)" class="btn btn-sm"><i class="fa fa-chevron-left"></i></button>
+            <button (click)="nextMonth($event)" class="btn btn-sm"><i class="fa fa-chevron-right"></i></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <app-small-calendar [viewDate]="viewDate" [appointments]="appointments$ | async"></app-small-calendar>
+        </div>
+      </div>
+
+      <app-appointment-card [appointment]="nextViewing"></app-appointment-card>
+    </div>
+    <div class="col base-calendar week-calendar">
+      <!-- big calendar (week-view) on top right hand side -->
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span class="fw-bold">{{ outputWeek() }}</span>
+
+          <div class="calendar-navigation">
+            <button (click)="prevWeek($event)" class="btn btn-sm"><i class="fa fa-chevron-left"></i></button>
+            <button (click)="nextWeek($event)" class="btn btn-sm"><i class="fa fa-chevron-right"></i></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <app-week-calendar [viewDate]="viewDate" [appointments]="appointments$ | async"></app-week-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

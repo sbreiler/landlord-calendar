@@ -1,0 +1,213 @@
+/* You can add global styles to this file, and also import other style files */
+
+$primary: #3486F0;
+$grey: #F7F8F8; // used for background etc.
+// $greyInsideCalendar: rgba(121, 122, 121, 0.1);
+$greyInsideCalendar: #F2F3F2;
+$darkerGrey: #ECEDEC;
+$activeColor: #2A2E33;
+
+@import '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
+@import '../node_modules/@fortawesome/fontawesome-free/scss/solid';
+
+.base-calendar {
+  // shared style between small and week-calendar
+  .fc {
+
+    td, th {
+      border: none;
+      font-weight: normal;
+    }
+
+    .fc-col-header {
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .card-header button {
+    // don't show button selection
+    outline: none;
+    box-shadow: none !important;
+  }
+}
+
+.small-calendar {
+  .fc {
+/*
+    .fc-toolbar {
+      margin-bottom: 0 !important;
+
+      .fc-toolbar-title {
+        font-size: 18px;
+      }
+    }
+*/
+
+    .fc-col-header {
+      .fc-day-sun, .fc-day-sat {
+        @extend .text-muted;
+      }
+    }
+
+    .fc-daygrid-day-top {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .fc-daygrid-body {
+      .fc-daygrid-day-events {
+        min-height: 10px;
+        margin-left: 0 !important;
+        display: flex;
+        justify-content: center;
+
+        .fc-daygrid-event {
+          // $eventBgcolor: $primary; // #3788d8;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+
+          background-color: $primary;
+
+          &.fc-event-past {
+            background-color: desaturate($primary, 70%);
+          }
+
+          .fc-event-main {
+            display: none;
+          }
+        }
+
+        .fc-daygrid-day-bottom {
+          display: none;
+        }
+      }
+
+      .fc-daygrid-day {
+        cursor: pointer;
+
+        a {
+          text-decoration: none;
+        }
+
+        &.fc-day-today {
+          background-color: $primary;
+          @include border-radius($badge-border-radius);
+          color: $white; // color: color-contrast($primary);
+        }
+      }
+
+      .fc-highlight {
+        // current week highlight
+        background: rgba($greyInsideCalendar, 0.5);
+      }
+    }
+
+    .fc-scrollgrid-section-header {
+      .fc-scroller {
+        overflow: hidden !important;
+      }
+    }
+  }
+}
+
+.week-calendar {
+  $cellPadding: 0.35em 0.5em;
+
+  .fc {
+    border: 1px solid $darkerGrey;
+
+    .fc-timegrid-col-events {
+      margin: 0;
+    }
+
+    .fc-timegrid-col.fc-day-today {
+      background: transparent;
+    }
+
+    .fc-timegrid-slot-label {
+      vertical-align: top;
+
+      .fc-timegrid-slot-label-frame {
+        text-align: left;
+
+        .fc-timegrid-slot-label-cushion {
+          padding: $cellPadding;
+        }
+      }
+    }
+
+    .fc-timegrid-slot {
+      height: 5em;
+    }
+  }
+
+  .table-bordered {
+    border-color: $darkerGrey;
+
+    td {
+      border-right: 1px solid $darkerGrey;
+    }
+
+    td:last-of-type {
+      border-right: none;
+    }
+  }
+
+  .fc-col-header {
+    thead th {
+      border-bottom: 1px solid $darkerGrey;
+
+      &.fc-col-header-cell {
+        padding-top: 0.3em;
+        padding-bottom: 0.3em;
+      }
+    }
+
+    .fc-day-past {
+      @extend .text-muted;
+    }
+
+    .fc-day-today {
+      .fc-col-header-cell-cushion {
+        // @extend .badge;
+        // @extend .bg-primary;
+        background-color: $primary;
+        @include border-radius($badge-border-radius);
+        color: $white;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+      }
+    }
+  }
+
+  .fc-event {
+    border: 1px solid $darkerGrey;
+    box-shadow: none !important;
+    border-radius: 0;
+
+    .fc-event-main {
+      padding: $cellPadding;
+    }
+
+    &.fc-event-past {
+      // border-color: $darkerGrey;
+      background-color: $greyInsideCalendar;
+
+      .fc-event-main {
+        color: color-contrast($greyInsideCalendar);
+      }
+    }
+
+    &.fc-event-future {
+      background: $activeColor;
+
+      .fc-event-main {
+        color: color-contrast($activeColor);
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+<div class="modal-backdrop show" *ngIf="appointment !== null"></div>
+<div class="modal show d-block" tabindex="-1" *ngIf="appointment !== null">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ appointment.date | amDateFormat:'dddd, D MMMM YYYY' }}</h5>
+
+        <div class="d-flex align-items-center">
+          <div class="btn-group me-3" *ngIf="prevId || nextId">
+            <button class="btn btn-sm btn-outline-primary" (click)="prevAppointment($event)" *ngIf="prevId" title="Previous Viewing"><i class="fa fa-chevron-left"></i></button>
+            <button class="btn btn-sm btn-outline-primary" (click)="nextAppointment($event)" *ngIf="nextId" title="Next Viewing"><i class="fa fa-chevron-right"></i></button>
+          </div>
+
+          <button type="button" class="btn-close" (click)="close($event)"></button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-2">
+            <app-img-placeholder [height]="80"></app-img-placeholder>
+          </div>
+          <div class="col-5">
+            <strong>{{ appointment.property.name }}</strong><br>
+            <span class="text-muted">
+              {{ appointment.property.address.street }} {{ appointment.property.address.houseNumber }},
+              {{ appointment.property.address.zipCode }} {{ appointment.property.address.city }},
+              {{ countryCode2countryName(appointment.property.address.country) }}
+            </span>
+            <div>
+              <div class="badge bg-secondary me-1" title="Date">
+                <i class="fa fa-calendar"></i> {{ appointment.date | amDateFormat:'D MMMM YYYY' }}
+              </div>
+              <div class="badge bg-secondary me-1" title="Time">
+                <i class="fa fa-clock"></i> {{ appointment.date | amDateFormat:'H:mm' }}
+              </div>
+              <div class="badge bg-secondary" title="Attendee count / invitee count">
+                <i class="fa fa-user"></i> {{ appointment.attendeeCount }} | {{ appointment.maxInviteeCount }}
+              </div>
+            </div>
+          </div>
+          <div class="col-2" *ngIf="appointment.showContactInformation && appointment.contact">
+            <app-img-placeholder [height]="80"></app-img-placeholder>
+          </div>
+          <div class="col-3" *ngIf="appointment.showContactInformation && appointment.contact">
+            <strong>{{ appointment.contact.firstName }} {{ appointment.contact.name }}</strong><br>
+            <span class="text-muted">Agent?</span>
+          </div>
+          <div class="col-4 text-muted" *ngIf="appointment.showContactInformation === false">
+            Contact hidden
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <div>
+          Navigate Viewings:
+
+        </div>
+        <button type="button" class="btn btn-outline-primary" (click)="close($event)">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
